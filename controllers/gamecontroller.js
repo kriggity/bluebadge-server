@@ -25,14 +25,16 @@ router.post('/create', (req, res) => {
 /*******************************************
 ** GET/READ all owner-game relationships
 *******************************************/
-router.get('/', (req, res) => {
-    Game.findAll({
-        where: {
-            owner: req.user.id
-        }
-    })
-        .then(game => res.status(200).json(game))
-        .catch(err => res.status(500).json({ error: err }))
+router.get('/user/:id', (req, res) => {
+    if (!isNaN(req.params.id)) {
+        Game.findAll({
+            where: {
+                owner: req.params.id
+            }
+        })
+            .then(game => res.status(200).json(game))
+            .catch(err => res.status(500).json({ error: err }))
+    }
 })
 /*******************************************
  ** GET/READ one owner-game relationship
