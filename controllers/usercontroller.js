@@ -77,9 +77,11 @@ router.post('/signin', (req, res) => {
 ** GET All Users
 ************************/
 router.get(['/', '/getall'], (req, res) => {
-    User.findAll({
-        attributes: ['id', 'fullname']
-    })
+    User.findAll(
+        // {
+        //     attributes: ['id', 'fullname']
+        // }
+    )
         .then(user => res.status(200).json(user))
         .catch(err => res.status(500).json({ error: err }))
 })
@@ -92,8 +94,8 @@ router.get('/:id', (req, res) => {
         User.findOne({
             where: {
                 id: req.params.id
-            },
-            attributes: ['fullname']
+            }
+            // , attributes: ['fullname']
         })
             .then(user => res.status(200).json(user))
             .catch(err => res.status(500).json({ error: err }))
