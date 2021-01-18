@@ -2,6 +2,7 @@ require('dotenv').config();
 
 // Express
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 // Controller Imports
@@ -13,9 +14,10 @@ const friend = require('./controllers/friendcontroller');
 const sequelize = require('./db');
 sequelize.sync();
 app.use(express.json());
+app.use(cors());
 
 // Middleware
-app.use(require('./middleware/headers'));
+// app.use(require('./middleware/headers'));
 
 // Exposed Routes
 app.use('/user', user);
