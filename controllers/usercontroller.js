@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../db').import('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 // const fetch = require('node-fetch');
 
 
@@ -9,6 +10,7 @@ const jwt = require('jsonwebtoken');
  ** Create User Endpoint
  ************************/
 router.post('/createuser', (req, res) => {
+  console.log('createuser called ', req)
     let fullName = req.body.user.fullname;
     let email = req.body.user.email;
     let password = req.body.user.password;
@@ -23,7 +25,7 @@ router.post('/createuser', (req, res) => {
                 let token = jwt.sign({
                     id: user.id
                 },
-                    process.env.JWT_SECRET, {
+                    config.get('JWT_SECRET'), {
                     expiresIn: 60 * 60 * 24
                 });
                 res.json({
@@ -42,6 +44,7 @@ router.post('/createuser', (req, res) => {
  ** User Sign In Endpoint
  ************************/
 router.post('/signin', (req, res) => {
+  console.log(req);
     User.findOne({
         where: {
             email: req.body.user.email
@@ -54,7 +57,7 @@ router.post('/signin', (req, res) => {
                         let token = jwt.sign({
                             id: user.id
                         },
-                            process.env.JWT_SECRET, {
+                            config.get('JWT_SECRET'), {
                             expiresIn: 60 * 60 * 24
                         })
                         res.status(200).json({
@@ -77,6 +80,7 @@ router.post('/signin', (req, res) => {
 ** GET All Users
 ************************/
 router.get(['/', '/getall'], (req, res) => {
+  console.log('Get all', req)
     User.findAll(
         // {
         //     attributes: ['id', 'fullname']
