@@ -1,9 +1,11 @@
 const {Sequelize} = require('sequelize');
-const sequelize = new Sequelize(process.env.DB_URL);
+const config = require('config');
+console.log(config);
+const sequelize = new Sequelize(config.get('DB_URL'));
 
 sequelize.authenticate()
     .then(() => {
-        console.log(`Connected to ${process.env.NAME} postgres DB`)
+        console.log(`Connected to postgres DB`)
     },
         err => console.log(err)
     );
