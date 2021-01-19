@@ -1,10 +1,28 @@
 const router = require('express').Router();
 const Game = require('../db').import('../models/game');
+const config = require('config');
+const Request = require('request');
 
 // Test Game root
 // router.get(['/', '/home', '/getall'], (req, res) => {
 //     res.send('game root');
 // });
+
+router.get('/mechanics/all', (req, res) => {
+    
+    let url = `https://www.boardgameatlas.com/api/game/mechanics?pretty=true&client_id=${config.get('BGA_CLIENT_ID')}`;
+    let options = {
+        'method': 'GET',
+        'url': url,
+        'headers': {
+            'Content-Type': 'application/json'
+        }
+    }
+    Request(options, (err, res) => {
+        if (err) throw new Error(err);
+        return res.body;
+    })
+})
 
 /*******************************************
 ** POST/CREATE new owner-game relationship
