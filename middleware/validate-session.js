@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../db').import('../models/user');
+const config = require('config');
 
 const validateSession = (req, res, next) => {
     if (req.method == 'OPTIONS') {

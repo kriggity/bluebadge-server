@@ -1,6 +1,5 @@
 const {Sequelize} = require('sequelize');
 const config = require('config');
-console.log(config);
 const sequelize = new Sequelize(config.get('DB_URL'));
 
 sequelize.authenticate()
