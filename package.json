@@ -29,8 +29,7 @@
     "jsonwebtoken": "^8.2.0",
     "minimist": ">=1.2.2",
     "morgan": "^1.10.0",
-    "pg": "^7.18.2",
-    "pg-hstore": "^2.3.3",
+    "mysql2": "^2.2.5",
     "node-fetch": "^2.6.1",
     "sequelize": "^5.22.3"
   },
